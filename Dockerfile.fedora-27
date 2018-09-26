@@ -3,9 +3,10 @@ FROM registry.fedoraproject.org/fedora:27
 
 MAINTAINER FreeIPA Developers <freeipa-devel@lists.fedorahosted.org>
 
-RUN mkdir /opt/ipa-le
+RUN mkdir /opt/ipa-le && mkdir /opt/ipa-le2
 RUN dnf install git letsencrypt -y
 RUN git clone https://github.com/mashinarius/freeipa-letsencrypt.git /opt/ipa-le
+RUN git clone https://github.com/antevens/letsencrypt-freeipa /opt/ipa-le2
 
 RUN groupadd -g 288 kdcproxy ; useradd -u 288 -g 288 -c 'IPA KDC Proxy User' -d '/var/lib/kdcproxy' -s '/sbin/nologin' kdcproxy
 RUN groupadd -g 289 ipaapi; useradd -u 289 -g 289 -c 'IPA Framework User' -d / -s '/sbin/nologin' ipaapi
